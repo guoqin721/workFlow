@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
-import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+// import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/index.scss' // global css
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
@@ -8,12 +8,12 @@ import App from './App'
 import store from './store'
 import router from './router'
 
-import '@/core/http';
-import '@/core/mixins/global.js';
+import '@/core/http'
+import '@/core/mixins/global.js'
 import '@/icons' // icon
 import '@/permission' // permission control
-import DateRange from '@/components/DateRange';
-import FilterBox from '@/components/FilterBox';
+import DateRange from '@/components/DateRange'
+import FilterBox from '@/components/FilterBox'
 
 Vue.component('date-range', DateRange)
 Vue.component('filter-box', FilterBox)

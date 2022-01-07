@@ -1,9 +1,7 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <div>
-        <router-view :key="key" />
-      </div>
+      <router-view :key="key" />
     </transition>
   </section>
 </template>
@@ -26,9 +24,6 @@ export default {
   width: 100%;
   position: relative;
   overflow: hidden;
-}
-.fixed-header+.app-main {
-  padding-top: 50px;
 }
 </style>
 
