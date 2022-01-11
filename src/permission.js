@@ -3,7 +3,7 @@ import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import { getToken } from '@/utils/auth' // get token from cookie
+import { getToken } from '@/utils'
 import getPageTitle from '@/utils/get-page-title'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
@@ -26,22 +26,21 @@ router.beforeEach(async(to, from, next) => {
       next({ path: '/' })
       NProgress.done()
     } else {
-      const hasGetUserInfo = store.getters.name
+      const hasGetUserInfo = store.getters.getUserInfo
       if (hasGetUserInfo) {
         next()
       } else {
-        // try {
-        //   // get user info
-        //   await store.dispatch('user/getInfo')
-
-        //   next()
-        // } catch (error) {
-        //   // remove token and go to login page to re-login
-        //   await store.dispatch('user/resetToken')
-        //   Message.error(error || 'Has Error')
-        //   next(`/login?redirect=${to.path}`)
-        //   NProgress.done()
-        // }
+        try {
+          // get user info
+          await store.dispatch('user/getInfo')
+          next()
+        } catch (error) {
+          // remove token and go to login page to re-login
+          await store.dispatch('user/resetToken')
+          Message.error(error || 'Has Error')
+          // // next(`/login?redirect=${to.path}`) // TODO: 跳登录
+          NProgress.done()
+        }
         next()
       }
     }
@@ -54,7 +53,7 @@ router.beforeEach(async(to, from, next) => {
     } else {
       // other pages that do not have permission to access are redirected to the login page.
       // next(`/login?redirect=${to.path}`)
-      next()
+      next() // TODO: 没有token跳登录
       NProgress.done()
     }
   }

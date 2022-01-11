@@ -1,8 +1,8 @@
 import defaultSettings from '@/settings'
 
 const { showSettings, fixedHeader, sidebarLogo } = defaultSettings
-// import { initUserInfo, findMenuItem } from './utils';
-import { setObjectToSessionStorage, findItemFromList, treeDataTranslate, getObjectFromSessionStorage } from '@/utils';
+// import { initUserInfo, findMenuItem } from './utils'
+import { setObjectToSessionStorage, getObjectFromSessionStorage } from '@/utils'
 const state = {
   showSettings: showSettings,
   fixedHeader: fixedHeader,
@@ -12,7 +12,7 @@ const state = {
   // 浏览器客户区宽度
   documentClientWidth: undefined,
   // 缓存页面
-  cachePages: getObjectFromSessionStorage('cachePages', []),
+  cachePages: getObjectFromSessionStorage('cachePages', [])
 }
 
 const mutations = {
@@ -22,20 +22,29 @@ const mutations = {
       state[key] = value
     }
   },
-  addCachePage (state, name) {
+  ADD_CACHE_PAGE(state, name) {
     if (state.cachePages.indexOf(name) === -1) {
-      let temp = [...state.cachePages];
-      temp.push(name);
-      setObjectToSessionStorage('cachePages', temp);
-      state.cachePages = temp;
+      const temp = [...state.cachePages]
+      temp.push(name)
+      setObjectToSessionStorage('cachePages', temp)
+      state.cachePages = temp
     }
   },
-  setClientHeight: (state, height) => {
-    state.documentClientHeight = height;
+  REMOVE_CACHE_PAGE(state, name) {
+    const pos = state.cachePages.indexOf(name)
+    if (pos !== -1) {
+      const temp = [...state.cachePages]
+      temp.splice(pos, 1)
+      setObjectToSessionStorage('cachePages', temp)
+      state.cachePages = temp
+    }
   },
-  setClientWidth: (state, width) => {
-    state.documentClienWidth = width;
+  SET_CLIENT_HEIGHT: (state, height) => {
+    state.documentClientHeight = height
   },
+  SET_CLIENT_WIDTH: (state, width) => {
+    state.documentClienWidth = width
+  }
 }
 
 const actions = {

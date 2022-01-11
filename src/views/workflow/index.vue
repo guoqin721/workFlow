@@ -1,22 +1,39 @@
 <template>
   <div class="flowManageWrap">
-    <router-link tag="div" class="routerBox" to="/main/formFlowCategory">
-      <i class="el-icon-folder" />
-      <div>流程分类</div>
-    </router-link>
-    <router-link to="/main/formFlowEntry" tag="div" class="routerBox">
-      <i class="el-icon-s-marketing" />
-      <div>流程设计</div>
-    </router-link>
-    <router-link to="/main/formAllInstance" tag="div" class="routerBox">
-      <i class="el-icon-set-up" />
-      <div>流程实例</div>
+    <router-link v-for="(item, index) in routerArr" :key="index" tag="div" class="routerBox" :to="item.to">
+      <i :class="item.icon" />
+      <div>{{ item.title }}</div>
     </router-link>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'WorkFlow',
+  data() {
+    return {
+      routerArr: [
+        {
+          to: '/main/formFlowCategory',
+          icon: 'el-icon-folder',
+          title: '流程分类'
+        },
+        {
+          to: '/main/formFlowEntry',
+          icon: 'el-icon-s-marketing',
+          title: '流程设计'
+        },
+        {
+          to: '/main/formAllInstance',
+          icon: 'el-icon-set-up',
+          title: '流程实例'
+        }
+      ]
+    }
+  },
+  mounted() {
+  }
+}
 </script>
 
 <style lang="scss" scoped>

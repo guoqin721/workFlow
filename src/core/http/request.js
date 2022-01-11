@@ -1,25 +1,25 @@
-import axios from 'axios';
-import router from '@/router';
-import dialog from '@/components/Dialog';
-import JSONbig from 'json-bigint';
-import { getToken, setToken } from '@/utils';
+import axios from 'axios'
+import router from '@/router'
+import dialog from '@/components/Dialog'
+import JSONbig from 'json-bigint'
+import { getToken, setToken } from '@/utils'
 
 // 创建axios实例
 const service = axios.create({
   timeout: 1000 * 30,
   withCredentials: true,
   headers: {
-    // 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-    'Content-Type': 'application/json; charset=utf-8',
+    // 'Content-Type': 'application/x-www-form-urlencoded charset=utf-8'
+    'Content-Type': 'application/json charset=utf-8',
     'deviceType': '4'
   },
   transformResponse: [
-    function (data) {
+    function(data) {
       if (typeof data === 'string') {
-        const JSONbigString = new JSONbig({storeAsString: true});
-        return JSONbigString.parse(data);
+        const JSONbigString = new JSONbig({ storeAsString: true })
+        return JSONbigString.parse(data)
       } else {
-        return data;
+        return data
       }
     }
   ]
@@ -28,48 +28,48 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
-    let token = getToken();
-    let menuIdJsonStr = window.sessionStorage.getItem('currentMenuId');
-    let currentMenuId;
+    const token = getToken()
+    const menuIdJsonStr = window.sessionStorage.getItem('currentMenuId')
+    let currentMenuId
     if (menuIdJsonStr != null) {
-      currentMenuId = (JSON.parse(menuIdJsonStr) || {}).data;
+      currentMenuId = (JSON.parse(menuIdJsonStr) || {}).data
     }
-    if (token != null) config.headers['Authorization'] = token;
-    if (currentMenuId != null) config.headers['MenuId'] = currentMenuId;
+    if (token != null) config.headers['Authorization'] = token
+    if (currentMenuId != null) config.headers['MenuId'] = currentMenuId
     return config
   }, error => {
     return Promise.reject(error)
   }
-);
+)
 
 // response拦截器
 service.interceptors.response.use(
   response => {
     if (response.data && response.data.errorCode === 'UNAUTHORIZED_LOGIN') { // 401, token失效
-      dialog.closeAll();
-      router.push({ name: 'login' })
+      dialog.closeAll()
+      router.push({ name: 'login' }) // TODO: 跳登录页
     } else {
       if (response.headers['refreshedtoken'] != null) {
-        setToken(response.headers['refreshedtoken']);
+        setToken(response.headers['refreshedtoken'])
       }
     }
     return response
   }, error => {
-    let response = error.response;
+    const response = error.response
 
     if (response && response.data) {
       if (response.data.errorCode === 'UNAUTHORIZED_LOGIN') {
-        dialog.closeAll();
-        router.push({ name: 'login' });
+        dialog.closeAll()
+        router.push({ name: 'login' }) // TODO: 跳登录页
       }
 
-      return Promise.reject(response.data);
+      return Promise.reject(response.data)
     } else {
       return Promise.reject(new Error({
         errorMessage: '数据获取失败，请稍后再试'
-      }));
+      }))
     }
   }
-);
+)
 
 export default service
