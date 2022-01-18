@@ -6,7 +6,7 @@ import { getToken, setToken } from '@/utils'
 
 // 创建axios实例
 const service = axios.create({
-  timeout: 1000 * 30,
+  timeout: 1000,
   withCredentials: true,
   headers: {
     // 'Content-Type': 'application/x-www-form-urlencoded charset=utf-8'

@@ -31,17 +31,15 @@ const getProps  = route => route.query
  * all roles can be accessed
  */
 export const constantRoutes = [
-
   {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
-    path: '/main',
+    path: '/',
     component: Layout,
-    redirect: '/main/flowManage',
+    redirect: '/flowManage',
     meta: { title: '流程管理', icon: 'el-icon-s-help'},
     children: [
       { 

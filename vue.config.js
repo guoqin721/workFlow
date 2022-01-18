@@ -36,12 +36,39 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+    // proxy: {
+    //   // '/api': {
+    //   //   target: 'http://dev.goglbo.com',
+    //   //   // target: 'http://bosstest.goglbo.com',
+    //   //   pathRewrite: { '^/api': '' },
+    //   //   ws: false,
+    //   //   changeOrigin: false
+    //   // },
+    //   // change xxx-api/login => mock/login
+    //   // detail: https://cli.vuejs.org/config/#devserver-proxy
+    //   [process.env.VUE_APP_BASE_API]: {
+    //     target: `http://localhost:${port}/mock`,
+    //     changeOrigin: false,
+    //     ws: false,
+    //     pathRewrite: {
+    //       ['^' + process.env.VUE_APP_BASE_API]: ''
+    //     }
+    //   }
+    // },
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
     name: name,
+    output: {
+      library: `${name}-[name]`,
+      libraryTarget: 'umd', // 把微应用打包成 umd 库格式
+      jsonpFunction: `webpackJsonp_${name}`,
+    },
     resolve: {
       alias: {
         '@': resolve('src')

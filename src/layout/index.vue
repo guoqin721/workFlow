@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper">
+  <div id="work-flow-project" class="app-wrapper">
     <div class="main-container">
       <div class="fixed-header" style="border-bottom: 1px solid rgb(220, 223, 230);">
         <breadcrumb />

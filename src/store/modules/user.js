@@ -31,10 +31,10 @@ const actions = {
       console.log('this', this, Vue, Vue.prototype)
       SystemController.getLoginInfo(Vue.prototype, {}).then(response => {
         const { data } = response
-        console.log('333', data)
         if (!data) {
           return reject('Verification failed, please Login again.')
         }
+        commit('SET_USER_INFO', data)
         resolve(data)
       }).catch(error => {
         reject(error)

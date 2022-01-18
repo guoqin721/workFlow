@@ -38,8 +38,71 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 
+/* eslint-disable-next-line */
+if (window.__POWERED_BY_QIANKUN__) {
+/* eslint-disable-next-line */
+  __webpack_public_path__ = window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__;
+}
+let instance = null;
+
+function render (props = {}) {
+  const { container } = props
+  router.base = window.__POWERED_BY_QIANKUN__ ? '/setting/loadVueApp/vue/' : '/'
+  // router = new VueRouter({
+  //   base: window.__POWERED_BY_QIANKUN__ ? '/vue' : '/',
+  //   mode: 'history',
+  //   routes: router.routes
+  // });
+  console.log('container', container)
+  instance = new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount(container ? container.querySelector('#app2') : '#app2');
+}
+if (!window.__POWERED_BY_QIANKUN__) {
+  render();
+}
+
+function storeTest (props) {
+  props.onGlobalStateChange &&
+    props.onGlobalStateChange(
+      (value, prev) => {
+        // setToken(value.token);
+        // const token = getToken()
+        console.log('*****', sessionStorage.getItem('token'))
+        console.log(`[onGlobalStateChange - ${props.name}]:`, value, prev)
+      }
+    );
+  props.setGlobalState &&
+    props.setGlobalState({
+      ignore: props.name,
+      user: {
+        name: props.name
+      }
+    });
+}
+  
+export async function bootstrap () {
+  console.log('[vue] vue app bootstraped');
+}
+
+export async function mount (props) {
+  console.log('[vue] props from main framework', props);
+  props.container.className = 'orange-project'
+  storeTest(props);
+  render(props);
+}
+
+export async function unmount () {
+  instance.$destroy();
+  instance.$el.innerHTML = '';
+  instance = null;
+  // router = null;
+}
+
 new Vue({
-  el: '#app',
+  el: '#app2',
   router,
   store,
   render: h => h(App)

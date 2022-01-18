@@ -1,4 +1,7 @@
 export default class SystemController {
+  static menuList(sender, params, axiosOption, httpOption) {
+    return sender.doUrl('admin/menu/list', 'get', params, axiosOption, httpOption)
+  }
   static login(sender, params, axiosOption, httpOption) {
     return sender.doUrl('admin/upms/login/doLogin', 'post', params, axiosOption, httpOption)
   }

@@ -8,23 +8,24 @@
 </template>
 
 <script>
+// import { SystemController } from '@/api'
 export default {
   name: 'WorkFlow',
   data() {
     return {
       routerArr: [
         {
-          to: '/main/formFlowCategory',
+          to: '/formFlowCategory',
           icon: 'el-icon-folder',
           title: '流程分类'
         },
         {
-          to: '/main/formFlowEntry',
+          to: '/formFlowEntry',
           icon: 'el-icon-s-marketing',
           title: '流程设计'
         },
         {
-          to: '/main/formAllInstance',
+          to: '/formAllInstance',
           icon: 'el-icon-set-up',
           title: '流程实例'
         }
@@ -32,6 +33,14 @@ export default {
     }
   },
   mounted() {
+    // new Promise((resolve, reject) => {
+    //   SystemController.menuList(this, {}).then(res => {
+    //     console.log('***', res)
+    //     resolve(res)
+    //   }).catch(e => {
+    //     reject(e)
+    //   })
+    // }).catch(e => {})
   }
 }
 </script>
