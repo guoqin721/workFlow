@@ -70,7 +70,7 @@ function storeTest (props) {
       (value, prev) => {
         // setToken(value.token);
         // const token = getToken()
-        console.log('*****', sessionStorage.getItem('token'))
+        console.log("sessionStorage.getItem('token')", sessionStorage.getItem('token'))
         console.log(`[onGlobalStateChange - ${props.name}]:`, value, prev)
       }
     );

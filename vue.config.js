@@ -39,25 +39,15 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    // proxy: {
-    //   // '/api': {
-    //   //   target: 'http://dev.goglbo.com',
-    //   //   // target: 'http://bosstest.goglbo.com',
-    //   //   pathRewrite: { '^/api': '' },
-    //   //   ws: false,
-    //   //   changeOrigin: false
-    //   // },
-    //   // change xxx-api/login => mock/login
-    //   // detail: https://cli.vuejs.org/config/#devserver-proxy
-    //   [process.env.VUE_APP_BASE_API]: {
-    //     target: `http://localhost:${port}/mock`,
-    //     changeOrigin: false,
-    //     ws: false,
-    //     pathRewrite: {
-    //       ['^' + process.env.VUE_APP_BASE_API]: ''
-    //     }
-    //   }
-    // },
+    proxy: {
+      'mock': {
+        target: `http://localhost:${port}/mock`,
+        changeOrigin: false,
+        // pathRewrite: {
+        //   ['^' + process.env.VUE_APP_BASE_API]: ''
+        // }
+      }
+    },
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {

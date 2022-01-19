@@ -34,7 +34,8 @@ const menuList = [
     "parentId": 1418057714138878000,
     "showOrder": 1,
     "updateTime": "2021-09-23 00:00:00",
-    "updateUserId": 1440911410581213400
+    "updateUserId": 1440911410581213400,
+    "icon": 'el-icon-folder'
   },
   {
     "createTime": "2021-09-23 00:00:00",
@@ -47,6 +48,7 @@ const menuList = [
     "parentId": 1418057714138878000,
     "showOrder": 2,
     "updateTime": "2021-09-23 00:00:00",
+    "icon": 'el-icon-s-marketing',
     "updateUserId": 1440911410581213400
   },
   {
@@ -60,6 +62,7 @@ const menuList = [
     "parentId": 1418057714138878000,
     "showOrder": 3,
     "updateTime": "2021-09-23 00:00:00",
+    "icon": 'el-icon-set-up',
     "updateUserId": 1440911410581213400
   },
 ]
@@ -72,6 +75,7 @@ module.exports = [
 
       return {
         code: 20000,
+        success: true,
         data: {
           success: true,
           menuList
